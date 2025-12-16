@@ -1,0 +1,6 @@
+.env
+logs/*.log
+logs/app.log
+.DS_Store
+vendor/
+backup.sql

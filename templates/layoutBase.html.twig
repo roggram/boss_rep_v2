@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="icon" href="data:,">
+</head>
+<body>
+    {# Twigコメント、共通項目 #}
+	<div>
+		{# Twig変数読み込み #}
+		これは{{ templateTitle }}です
+
+		{# Twigの条件判定 #}
+		{% if isAddComment is defined and isAddComment == true %}
+			{% block AddComment %}{% endblock %}
+		{% endif %}
+	</div>
+
+    {# Twigコメント、子テンプレート #}
+	<div>
+		{% block childTemplate %}{% endblock %}
+	</div>
+
+	<!-- 個別JavaScript -->
+	{% block includeJs %}{% endblock %}
+</body>
+</html>

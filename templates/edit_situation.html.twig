@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>状況名の編集</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* 基本スタイル */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f5f7fb;
+            color: #333;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #2d3748;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        /* ナビゲーションボタン */
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .back-button, .home-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: none;
+            border: 2px solid #4299e1;
+            color: #4299e1;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .back-button:hover, .home-button:hover {
+            background-color: #4299e1;
+            color: white;
+        }
+
+        /* 状況カード */
+        .one_situation_container {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .one_situation_container:hover {
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        /* フォーム要素 */
+        .situation_show_form {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .situation_show_button {
+            flex-grow: 1;
+            padding: 8px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .situation_show_button:focus {
+            outline: none;
+            border-color: #4299e1;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+        }
+
+        .message_edit_button {
+            background-color: #4299e1;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .message_edit_button:hover {
+            background-color: #3182ce;
+        }
+
+        .message_edit_button:before {
+            content: '\f304';  /* 編集アイコン */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+        }
+    </style>
+</head>
+<body>
+    <h1>状況名の編集</h1>
+    
+    <div class="nav-buttons">
+        <button type="button" onclick="history.back()" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            戻る
+        </button>
+        <a href="show_trigger" class="home-button">
+            <i class="fas fa-home"></i>
+            ホームに戻る
+        </a>
+    </div>
+
+    {% for situation in situations %}
+        <div class="one_situation_container">
+            <form method="post" action="edit_situation_name_exec" class="situation_show_form">
+                <input type="hidden" name="trigger_id" value="{{trigger_id}}">
+                <input type="hidden" name="situation_id" value="{{situation.id}}">
+                <input class="situation_show_button" type="text" name="update_situation_name_text" value="{{ situation.situation_name }}" required>
+                <button type="submit" class="message_edit_button">更新</button>
+            </form>
+        </div>
+    {% endfor %}
+</body>
+</html>

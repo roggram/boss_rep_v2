@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>add_trigger</title>
+  <style>
+    h1 {
+      font-size: 24px;
+    }
+
+    .one_situation_container {
+      display: flex;
+      /* border: solid 1px gray; */
+      /*border-radius: 8px; */
+      padding: 8px;
+      margin: 32px;
+      justify-content: center;
+      /* align-items: center; */
+    }
+    .one_situation_container > .trigger_name {
+      flex-grow: 1;
+    }
+    .one_situation_container > .situation_edit_form {
+      margin-left: 8px;
+    }
+
+    .situation_edit_button {
+      /* background: none; */
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    .new_trigger_container {
+      margin-left: auto;
+      margin-right: auto;
+      width: 96px;
+    }
+    .trigger_show_form {
+      width: 100%;
+    }
+    .trigger_show_button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+      padding: 0;
+      font: inherit;
+    }
+  </style>
+</head>
+<body>
+  <h1>新しい状況追加</h1>
+  <div class="one_situation_container">
+      <form method="post" action="/add_situation_exec" class="situation_edit_form">
+        <input type="text" name="add_situation_name" value="" placeholder="テキスト入力欄" required>
+        <input type="hidden" name="trigger_id" value="{{ trigger_id }}">
+        <button type="submit" class="situation_edit_button">+</button>
+      </form>
+      <br>
+      <button type="button" onclick="history.back()">戻る</button>
+  </div>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>先輩一覧</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* 基本スタイル */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f5f7fb;
+            color: #333;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+
+            h1 {
+                font-size: 1.8rem;
+                color: #2d3748;
+                margin-bottom: 24px;
+                padding-bottom: 12px;
+                border-bottom: 2px solid #e2e8f0;
+            }
+        }
+
+        /* カードスタイル */
+        .one_trigger_container {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+
+            &:hover {
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                transform: translateY(-2px);
+            }
+        }
+
+        /* ボタンスタイル */
+        .trigger_show_button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            width: 100%;
+            padding: 0;
+            font: inherit;
+            color: #2d3748;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+
+            &:before {
+                content: '\f007';
+                font-family: 'Font Awesome 6 Free';
+                font-weight: 900;
+                margin-right: 12px;
+                color: #4299e1;
+            }
+        }
+
+        .trigger_edit_button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            color: #e53e3e;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+
+            &:hover {
+                background-color: #fff5f5;
+            }
+        }
+
+        /* 新規追加ボタン */
+        .new_trigger_container {
+            margin-top: 24px;
+            text-align: center;
+
+            button {
+                background-color: #4299e1;
+                color: white;
+                border: none;
+                padding: 12px 24px;
+                border-radius: 8px;
+                cursor: pointer;
+                font-weight: 500;
+                transition: background-color 0.2s ease;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+
+                &:before {
+                    content: '\f067';
+                    font-family: 'Font Awesome 6 Free';
+                    font-weight: 900;
+                }
+
+                &:hover {
+                    background-color: #3182ce;
+                }
+            }
+        }
+
+        /* 編集ボタンコンテナ */
+        .edit_name_container {
+            margin-top: 16px;
+            text-align: right;
+
+            button {
+                background: none;
+                border: 2px solid #4299e1;
+                color: #4299e1;
+                padding: 8px 16px;
+                border-radius: 6px;
+                cursor: pointer;
+                font-weight: 500;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background-color: #4299e1;
+                    color: white;
+                }
+            }
+        }
+
+        .logout-button {
+            font-size: 0.6rem;
+            line-height: 1.2rem;
+            display: inline-block;
+            color: black;
+            border: solid 1px #eee;
+            border-radius: 4px;
+            text-decoration: none;
+            padding: 4px 8px;
+            margin-bottom: 20px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            &:hover {
+                background-color: #f5f7fb;
+                transform: translateY(1px);
+                transition: all 0.2s ease;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="/show_login_page" class="logout-button">
+        ログアウト
+    </a>
+    <h1>先輩一覧</h1>
+    {% for trigger in triggers %}
+        <div class="one_trigger_container">
+            <form method="get" action="/show_situation" class="trigger_show_form">
+                <input type="hidden" name="trigger_id" value="{{trigger.id}}">
+                <button type="submit" class="trigger_show_button">{{ trigger.trigger_name }}</button>
+            </form>
+            <form method="post" action="/delete_trigger" class="trigger_edit_form">
+                <input type="hidden" name="trigger_id" value="{{trigger.id}}">
+                <button type="submit" class="trigger_edit_button">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </form>
+        </div>
+    {% endfor %}
+
+    <div class="edit_name_container">
+        <form method="get" action="edit_trigger_name" class="trigger_edit_form">
+            <button type="submit">先輩名の編集</button>
+        </form>
+    </div>
+
+    <div class="new_trigger_container">
+        <form action="/add_trigger" method="get">
+            <button type="submit">新規先輩追加</button>
+        </form>
+    </div>
+</body>
+</html>
