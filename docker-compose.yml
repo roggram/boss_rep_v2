@@ -40,4 +40,4 @@ services:
             - "3306:3306"
         volumes:
             - mysql_data:/var/lib/mysql
-            - ./backup.sql:/docker-entrypoint-initdb.d/backup.sql
+            - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
