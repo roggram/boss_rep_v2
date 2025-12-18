@@ -29,7 +29,6 @@ CREATE TABLE `triggers` (
   `created_at` datetime NOT NULL,
   `deleted_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `trigger_name` (`trigger_name`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `triggers_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
