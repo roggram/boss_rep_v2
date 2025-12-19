@@ -2,12 +2,15 @@ FROM php:8.1-alpine
 
 # 必要なパッケージとPHP拡張機能をインストール
 RUN apk add --no-cache \
-    # MySQLクライアントライブラリ
     mysql-client \
-    # ビルドに必要な依存関係
     autoconf \
     g++ \
-    make
+    make \
+    git \
+    unzip
+
+# Composerをインストール
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # PDO MySQL拡張機能をインストール
 RUN docker-php-ext-install pdo pdo_mysql
@@ -15,7 +18,16 @@ RUN docker-php-ext-install pdo pdo_mysql
 # 作業ディレクトリを設定
 WORKDIR /var/www
 
-# ビルド依存関係をクリーンアップ（イメージサイズ削減）
+# composer.jsonとcomposer.lockをコピー
+COPY composer.json composer.lock ./
+
+# 依存関係をインストール
+RUN composer install --no-dev --optimize-autoloader --no-interaction
+
+# 残りのアプリケーションファイルをコピー
+COPY . .
+
+# ビルド依存関係をクリーンアップ
 RUN apk del autoconf g++ make
 
 # PHPビルトインサーバーを起動
