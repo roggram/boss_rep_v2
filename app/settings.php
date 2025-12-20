@@ -13,7 +13,7 @@ return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
         SettingsInterface::class => function () {
             return new Settings([
-                'displayErrorDetails' => false, // Should be set to false in production
+                'displayErrorDetails' => true, // 一時的にtrueでエラー詳細を確認
                 'logError'            => true,
                 'logErrorDetails'     => true,
                 'logger' => [
