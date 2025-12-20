@@ -24,8 +24,10 @@ if (false) { // Should be set to true in production
 }
 
 // dotenv
-$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
-$dotenv->safeLoad();
+if (file_exists(__DIR__ . '/../.env')) {
+    $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+    $dotenv->load();
+}
 
 // Set up settings
 $settings = require __DIR__ . '/../app/settings.php';
