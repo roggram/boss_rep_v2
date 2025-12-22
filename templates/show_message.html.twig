@@ -171,22 +171,22 @@
             // 現在のindexから最後までのメッセージを表示
             while (index < max) {
                 const message = messageList[index].message;
-                
+
                 const left = document.createElement('div');
                 left.className = 'message left';
                 const chatBox = document.createElement('div');
                 chatBox.className = 'chat_box';
-                
+
                 // URLチェックと変換を即時実行
                 if (/(https?:\/\/[^\s]+)/g.test(message)) {
                     chatBox.innerHTML = convertUrlsToLinks(message);
                 } else {
                     chatBox.textContent = message;
                 }
-                
+
                 left.appendChild(chatBox);
                 chatRoot.appendChild(left);
-                
+
                 index++;
 
                 // 最後のメッセージまでスクロール
@@ -194,7 +194,7 @@
                     chatBox.scrollIntoView({ behavior: 'smooth' });
                 }
             }
-            
+
             isProcessing = false;
         };
 
@@ -203,11 +203,11 @@
             if (reply === '' || isProcessing) {
                 return;
             }
-            
+
             isProcessing = true;
             appendReply(reply);
             replyText.value = '';
-            
+
             if (index < max) {
                 await showNextMessage();
             }
@@ -221,7 +221,7 @@
 
             isProcessing = true;
             const message = messageList[index].message;
-            
+
             const left = document.createElement('div');
             left.className = 'message left';
             const chatBox = document.createElement('div');
@@ -230,7 +230,7 @@
             chatRoot.appendChild(left);
 
             await typeWriter(chatBox, message, 30);
-            
+
             chatBox.scrollIntoView({ behavior: 'smooth' });
             index++;
             isProcessing = false;
@@ -241,13 +241,13 @@
             right.className = 'message right';
             const chatBox = document.createElement('div');
             chatBox.className = 'chat_box';
-            
+
             if (/(https?:\/\/[^\s]+)/g.test(reply)) {
                 chatBox.innerHTML = convertUrlsToLinks(reply);
             } else {
                 chatBox.textContent = reply;
             }
-            
+
             right.appendChild(chatBox);
             chatRoot.appendChild(right);
             chatBox.scrollIntoView({ behavior: 'smooth' });
@@ -270,7 +270,7 @@
                 chatBox.className = 'chat_box';
                 left.appendChild(chatBox);
                 chatRoot.appendChild(left);
-                
+
                 await typeWriter(chatBox, messageList[0].message, 30);
                 index = 1;
             }

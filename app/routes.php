@@ -17,6 +17,7 @@ use App\Application\Actions\EditAction\EditSituationNameExecAction;
 use App\Application\Actions\EditAction\EditTriggerNameAction;
 use App\Application\Actions\EditAction\EditTriggerNameExecAction;
 use App\Application\Actions\EditAction\UpdateMessageExecAction;
+use App\Application\Actions\LoginAction\GuestLoginAction;
 use App\Application\Actions\LoginAction\LineAuthCallbackAction;
 use App\Application\Actions\LoginAction\LineLoginAction;
 use App\Application\Actions\LoginAction\LogoutAction;
@@ -43,9 +44,10 @@ return function (App $app) {
     // });
 
     // ログイン
-    $app->get('/', ShowLoginPageAction::class); // LINEログイン
-    $app->get('/line_login', LineLoginAction::class); // LINEログイン コールバックURLに対応するAPI
-    $app->get('/line_login/callback', LineAuthCallbackAction::class);
+    $app->get('/', ShowLoginPageAction::class); // ログインページ
+    $app->get('/line_login', LineLoginAction::class); // LINEログイン
+    $app->get('/line_login/callback', LineAuthCallbackAction::class); // LINEログイン コールバック
+    $app->get('/guest_login', GuestLoginAction::class); // ゲストログイン
     $app->get('/logout', LogoutAction::class); // ログアウト
     // TODO: 以下はログアウトボタンを押された時のAPI
     $app->get('/show_login_page', ShowLoginPageAction::class);

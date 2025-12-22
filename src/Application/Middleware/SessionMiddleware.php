@@ -25,15 +25,20 @@ class SessionMiddleware implements Middleware
             }
             session_save_path($session_path);
 
-            // セッションクッキーの設定（セキュリティとセッション維持のため）
-            ini_set('session.cookie_lifetime', '3600');     // クッキー有効期限を1時間に設定
+            // session_set_cookie_params()でクッキーパラメータを明示的に設定
+            session_set_cookie_params([
+                'lifetime' => 3600,           // 1時間有効
+                'path' => '/',                // サイト全体で有効
+                'domain' => '',               // 現在のドメインのみ
+                'secure' => false,            // HTTPでも動作（HTTPSの場合はtrue）
+                'httponly' => true,           // JavaScriptからアクセス不可（XSS対策）
+                'samesite' => 'Lax'          // クロスサイトリクエストでも送信
+            ]);
+
+            // その他のセッション設定
             ini_set('session.gc_maxlifetime', '3600');      // セッションデータの有効期限を1時間に設定
-            ini_set('session.cookie_samesite', 'Lax');      // LINEからのリダイレクトでもクッキー送信
-            ini_set('session.cookie_httponly', '1');        // XSS対策
-            ini_set('session.cookie_secure', '0');          // HTTPSの場合は '1' に変更
             ini_set('session.use_only_cookies', '1');       // URLパラメータでのセッションID送信を無効化
             ini_set('session.use_strict_mode', '1');        // セッション固定攻撃対策
-            ini_set('session.cookie_path', '/');            // クッキーのパスを明示的に設定
 
             // セッション開始
             session_start();

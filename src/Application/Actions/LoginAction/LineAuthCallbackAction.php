@@ -104,14 +104,8 @@ class LineAuthCallbackAction extends Action
 		// -+-+-+-+-+-+-+-+--+--+-
 		// curl終了
 		// -+-+-+-+-+-+-+-+--+--+-
-		// -+-+-+-+-+-+-+-+--+--+-
-		// -+-+-+-+-+-+-+-+--+--+-
-		// 以降は次のチケットかと思う処理
-		// -+-+-+-+-+-+-+-+--+--+-
-		// -+-+-+-+-+-+-+-+--+--+-
 		if ($response_from_line_token_server === false) { // curlによるtokenリクエストが失敗した場合
-			$this->logger->error("curl使用: LINEからアクセスtokenを取得するために送信したクエリパラメータ: {$token_request_url}");
-			$this->logger->error("curl使用: アクセスtokenを取得するために叩き,返されたjson: {$response_from_line_token_server}");
+			$this->logger->error("LINE APIへのトークンリクエストが失敗しました（curl_exec error）");
 			return $this->twig->render(
 				$response,
 				"error.html.twig",
@@ -123,8 +117,6 @@ class LineAuthCallbackAction extends Action
 		if ($response_from_line_token_server_assoc === null) // もしjson_decodeが失敗した場合
 		{
 			$this->logger->error("LINEからのアクセスtokenを含むレスポンスのjson_decode()に失敗しました");
-			$this->logger->error("curl使用: LINEからアクセスtokenを取得するために送信したクエリパラメータ: {$token_request_url}");
-			$this->logger->error("curl使用: アクセスtokenを取得するために叩き,返されたjson: {$response_from_line_token_server}");
 			return $this->twig->render(
 				$response,
 				"error.html.twig",
