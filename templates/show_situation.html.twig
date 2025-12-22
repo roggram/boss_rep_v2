@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>状況一覧</title>
+    <title>助言者一覧</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
@@ -73,7 +73,7 @@
             background-color: #3182ce;
         }
 
-        /* 状況カード */
+        /* 助言者カード */
         .one_situation_container {
             background: white;
             border: 1px solid #e2e8f0;
@@ -197,7 +197,7 @@
 </head>
 <body>
     <div class="header">
-        <h1>状況一覧</h1>
+        <h1>助言者一覧</h1>
         <div class="navigation">
             <a href="/show_trigger" class="back-button">
                 <i class="fas fa-arrow-left mr-2"></i> 戻る
@@ -236,14 +236,14 @@
         <input type="hidden" name="trigger_id" value="{{trigger_id}}">
         <button type="submit" class="situation_edit_button">
             <i class="fas fa-cog"></i>
-            状況名の編集
+            助言者名の編集
         </button>
     </form>
 
     <div class="new-situation-form">
-        <h2>新規状況追加</h2>
+        <h2>新規助言者追加</h2>
         <form method="post" action="/add_situation_exec" class="form-group">
-            <input type="text" name="add_situation_name" placeholder="新しい状況名を入力" required>
+            <input type="text" name="add_situation_name" placeholder="新しい人物名を入力" required>
             <input type="hidden" name="trigger_id" value="{{ trigger_id }}">
             <button type="submit" class="add-button">
                 <i class="fas fa-plus"></i>
