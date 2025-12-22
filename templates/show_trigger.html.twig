@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>トリガー一覧</title>
+    <title>アドバイス一覧</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
@@ -165,7 +165,7 @@
     <a href="/show_login_page" class="logout-button">
         ログアウト
     </a>
-    <h1>トリガー</h1>
+    <h1>アドバイス一覧</h1>
     {% for trigger in triggers %}
         <div class="one_trigger_container">
             <form method="get" action="/show_situation" class="trigger_show_form">
@@ -183,13 +183,13 @@
 
     <div class="edit_name_container">
         <form method="get" action="edit_trigger_name" class="trigger_edit_form">
-            <button type="submit">トリガー名の編集</button>
+            <button type="submit">アドバイスの編集</button>
         </form>
     </div>
 
     <div class="new_trigger_container">
         <form action="/add_trigger" method="get">
-            <button type="submit">新規トリガー追加</button>
+            <button type="submit">新規アドバイス追加</button>
         </form>
     </div>
 </body>
