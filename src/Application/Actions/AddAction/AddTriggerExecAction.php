@@ -35,8 +35,7 @@ class AddTriggerExecAction extends Action{
 		$trigger = new Trigger();
 		$trigger->trigger_name = $trigger_name;
 		$trigger->user_id = $user_id;  // ログイン中のユーザーIDを設定
-		$trigger->created_at = date("now");
-		$trigger->deleted_at = null;
+		// created_at, deleted_atはEloquentが自動管理
 		$trigger->save();
 		return $this->response
 			->withHeader("Location", "/show_trigger")

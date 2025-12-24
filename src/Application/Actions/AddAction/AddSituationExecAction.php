@@ -54,8 +54,7 @@ class AddSituationExecAction extends Action{
 		$situation->situation_name = $situation_name;
 		$situation->trigger_id = $trigger_id;
 		$situation->user_id = $user_id;  // ログイン中のユーザーIDを設定
-		$situation->created_at = date("now");
-		$situation->deleted_at = null;
+		// created_at, deleted_atはEloquentが自動管理
 		$situation->save();
 		return $response
 			->withHeader("Location", "/show_situation?trigger_id={$trigger_id}")
