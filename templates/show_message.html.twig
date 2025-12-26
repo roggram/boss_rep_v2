@@ -323,6 +323,7 @@
         // 最初のメッセージを表示
         window.addEventListener('load', async () => {
             if (messageList.length > 0) {
+                isProcessing = true;
                 const left = document.createElement('div');
                 left.className = 'message left';
                 const chatBox = document.createElement('div');
@@ -336,6 +337,7 @@
                 if (index >= max) {
                     disableButtons();
                 }
+                isProcessing = false;
             } else {
                 // メッセージが0件の場合もボタンを無効化
                 disableButtons();
