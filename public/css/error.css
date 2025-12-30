@@ -1,0 +1,21 @@
+body {
+    background-color: #f5f7fb;
+}
+.login-container {
+    /* display: flex;
+    justify-content: center; */
+    text-align: center;
+    margin-top: 50px;
+}
+.line-login-btn {
+    display: inline-block;
+}
+.line-login-btn img {
+    width: 240px;
+}
+body > a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    text-decoration: none;
+}
