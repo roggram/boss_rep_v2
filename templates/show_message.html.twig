@@ -4,137 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>show_message</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            margin: 16px;
-            font-family: Arial, sans-serif;
-            background-color: #f5f7fb;
-            min-height: 100vh;
-        }
-
-        .chat-container {
-            width: 100%;
-            max-width: 800px;
-            padding: 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .back-button {
-            padding: 8px 16px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: white;
-            cursor: pointer;
-        }
-
-        #chat-root {
-            margin: 20px 0;
-        }
-
-        .message {
-            margin-bottom: 14px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .left {
-            align-items: flex-start;
-        }
-
-        {# .right {
-            align-items: flex-end;
-        } #}
-
-        .chat_box {
-            padding: 8px 12px;
-            border-radius: 12px;
-            max-width: 80%;
-            word-wrap: break-word;
-            display: inline-block;
-        }
-
-        .left .chat_box {
-            background-color: white;
-            border: 1px solid rgb(192, 192, 192);
-            border-radius: 16px;
-        }
-
-        .right .chat_box {
-            background-color: honeydew;
-            border: 1px solid rgb(192, 192, 192);
-            border-radius: 16px;
-        }
-
-        .input-container {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        {# input[type="text"] {
-            flex-grow: 1;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1em;
-        } #}
-
-        button {
-            padding: 8px 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: white;
-            cursor: pointer;
-            white-space: nowrap;
-            font-size: 1em;
-        }
-
-        .next-button, .show-all-button {
-            color: white;
-            border: none;
-            flex: 1;
-        }
-
-        .next-button {
-            background-color: #4299e1;
-        }
-
-        .next-button:hover {
-            background-color: #3182ce;
-        }
-
-        .show-all-button {
-            background-color: #48bb78;
-        }
-
-        .show-all-button:hover {
-            background-color: #38a169;
-        }
-
-        .next-button.disabled{
-            background-color: #80b1d9ff;
-            pointer-events: none;
-            opacity: 0.6;
-        }
-        .show-all-button.disabled {
-            background-color: #81b597ff;
-            pointer-events: none;
-            opacity: 0.6;
-        }
-
-        .next-button.disabled:hover,
-        .show-all-button.disabled:hover {
-            background-color: #b3c6bbff;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/show_message.css">
 </head>
 <body>
     <div class="chat-container">
@@ -192,7 +62,7 @@
         };
 
         // メッセージ内容を一文字ずつ表示していく動きを実装するための関数
-        // （相手が今、テキストで入力してくれている感じを出すために）
+        // （メンバー（相手）が今、テキストで入力してくれている感じを出すために）
         const typeWriter = async (element, text, speed = 30) => {
             // URLはタイプライターだと見づらいので例外処理
             if (/(https?:\/\/[^\s]+)/g.test(text)) {

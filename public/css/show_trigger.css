@@ -1,0 +1,131 @@
+body h1 {
+    font-size: 1.8rem;
+    color: #2d3748;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.one_trigger_container {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.one_trigger_container:hover {
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+.trigger_show_button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    padding: 0;
+    font: inherit;
+    color: #2d3748;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+.trigger_show_button:before {
+    content: '\f007';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    margin-right: 12px;
+    color: #4299e1;
+}
+
+.trigger_edit_button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: #e53e3e;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.trigger_edit_button:hover {
+    background-color: #fff5f5;
+}
+
+.new_trigger_container {
+    margin-top: 24px;
+    text-align: center;
+}
+
+.new_trigger_container button {
+    background-color: #4299e1;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.new_trigger_container button:before {
+    content: '\f067';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+}
+
+.new_trigger_container button:hover {
+    background-color: #3182ce;
+}
+
+.edit_name_container {
+    margin-top: 16px;
+    text-align: right;
+}
+
+.edit_name_container button {
+    background: none;
+    border: 2px solid #4299e1;
+    color: #4299e1;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.edit_name_container button:hover {
+    background-color: #4299e1;
+    color: white;
+}
+
+.logout-button {
+    font-size: 0.6rem;
+    line-height: 1.2rem;
+    display: inline-block;
+    color: black;
+    border: solid 1px #eee;
+    border-radius: 4px;
+    text-decoration: none;
+    padding: 4px 8px;
+    margin-bottom: 20px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.logout-button:hover {
+    background-color: #f5f7fb;
+    transform: translateY(1px);
+    transition: all 0.2s ease;
+}

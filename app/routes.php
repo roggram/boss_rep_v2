@@ -60,7 +60,6 @@ return function (App $app) {
     $app->post('/edit_trigger_name_exec', EditTriggerNameExecAction::class);
     // Situation
     $app->post('/add_situation_exec', AddSituationExecAction::class);
-    $app->get('/add_situation', AddSituationAction::class);
     $app->get('/show_situation', ShowSituationAction::class);
     $app->get('/edit_situation_name', EditSituationNameAction::class);
     $app->post('/delete_situation', DeleteSituationAction::class);

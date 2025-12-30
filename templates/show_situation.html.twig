@@ -3,201 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>相手一覧</title>
+    <title>メンバー一覧</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Noto Sans JP', sans-serif;
-            background-color: #f5f7fb;
-            color: #333;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* ヘッダー部分 */
-        .header {
-            margin-bottom: 24px;
-        }
-
-        h1 {
-            font-size: 1.8rem;
-            color: #2d3748;
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #e2e8f0;
-        }
-
-        .navigation {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
-        .back-button, .home-button {
-            display: inline-flex;
-            align-items: center;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-
-        .back-button {
-            background-color: #edf2f7;
-            color: #4a5568;
-            border: none;
-            cursor: pointer;
-        }
-
-        .back-button:hover {
-            background-color: #e2e8f0;
-        }
-
-        .home-button {
-            background-color: #4299e1;
-            color: white;
-        }
-
-        .home-button:hover {
-            background-color: #3182ce;
-        }
-
-        /* 相手カード */
-        .one_situation_container {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .one_situation_container:hover {
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transform: translateY(-2px);
-        }
-
-        .situation_show_button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            text-align: left;
-            padding: 0;
-            font: inherit;
-            color: #2d3748;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            width: auto;
-        }
-
-        .situation_show_button:before {
-            content: '\f075';  /* コメントアイコン */
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            margin-right: 12px;
-            color: #4299e1;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 8px;
-        }
-
-        .situation_edit_button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 6px;
-            color: #4a5568;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .edit-icon {
-            color: #4299e1;
-        }
-
-        .delete-icon {
-            color: #e53e3e;
-        }
-
-        .situation_edit_button:hover {
-            background-color: #edf2f7;
-        }
-
-        /* 新規追加フォーム */
-        .new-situation-form {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
-            margin-top: 24px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        h2 {
-            font-size: 1.4rem;
-            color: #2d3748;
-            margin-bottom: 16px;
-        }
-
-        .form-group {
-            display: flex;
-            gap: 8px;
-        }
-
-        input[type="text"] {
-            flex-grow: 1;
-            padding: 12px;
-            border: 2px solid #e2e8f0;
-            border-radius: 6px;
-            font-size: 1rem;
-            transition: border-color 0.2s ease;
-        }
-
-        input[type="text"]:focus {
-            outline: none;
-            border-color: #4299e1;
-        }
-
-        .add-button {
-            background-color: #4299e1;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: background-color 0.2s ease;
-        }
-
-        .add-button:hover {
-            background-color: #3182ce;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/show_situation.css">
 </head>
 <body>
     <div class="header">
-        <h1>相手一覧</h1>
+        <h1>コミュニティ > メンバー</h1>
         <div class="navigation">
             <a href="/show_trigger" class="back-button">
                 <i class="fas fa-arrow-left mr-2"></i> 戻る
@@ -241,7 +57,7 @@
     </form>
 
     <div class="new-situation-form">
-        <h2>新規人物追加</h2>
+        <h2>新規メンバー追加</h2>
         <form method="post" action="/add_situation_exec" class="form-group">
             <input type="text" name="add_situation_name" placeholder="新しい人物名を入力" required>
             <input type="hidden" name="trigger_id" value="{{ trigger_id }}">
