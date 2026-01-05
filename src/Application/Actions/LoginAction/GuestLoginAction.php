@@ -9,6 +9,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use App\Application\Settings\SettingsInterface;
 use App\Models\User;
+use App\Application\Helpers\SessionHelper;
 
 class GuestLoginAction extends Action
 {
@@ -38,6 +39,9 @@ class GuestLoginAction extends Action
         $_SESSION['user_name'] = $guestUser->user_name;
 
         $this->logger->info("ゲストログイン成功: user_id={$guestUser->id}");
+
+        // セッション固定攻撃対策：ログイン成功後にセッションIDを再生成
+        SessionHelper::safeRegenerateId();
 
         // トリガー一覧ページにリダイレクト
         return $this->response

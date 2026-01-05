@@ -12,6 +12,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Application\Settings\SettingsInterface;
 use Illuminate\Support\Facades\Redis;
 use App\Models\User;
+use App\Application\Helpers\SessionHelper;
 
 
 class LineAuthCallbackAction extends Action
@@ -207,6 +208,9 @@ class LineAuthCallbackAction extends Action
 		$_SESSION['user_name'] = $user_name;
 
 		$this->logger->info("ログイン成功: user_id={$user->id}");
+
+		// セッション固定攻撃対策：ログイン成功後にセッションIDを再生成
+		SessionHelper::safeRegenerateId();
 
 		// ログイン後のページにリダイレクト
 		return $this->response

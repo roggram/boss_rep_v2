@@ -8,6 +8,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\MiddlewareInterface as Middleware;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
+use App\Application\Helpers\SessionHelper;
 
 class SessionMiddleware implements Middleware
 {
@@ -42,6 +43,9 @@ class SessionMiddleware implements Middleware
 
             // セッション開始
             session_start();
+
+            // セッションの安全性を確認（古いセッションの処理）
+            SessionHelper::validateSessionOnStart();
         }
 
         // セッションをリクエスト属性として追加
