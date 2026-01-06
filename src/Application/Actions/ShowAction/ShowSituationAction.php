@@ -71,6 +71,7 @@ class ShowSituationAction extends Action{
 		return $this->twig->render($this->response, $template,
 			[
 				'trigger_id' => $trigger_id,
+				'trigger_name' => $trigger->trigger_name,
 				'situations' => $situations,
 				'validation_errors' => $validation_errors,
 				'old_input' => $old_input

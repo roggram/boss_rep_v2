@@ -10,7 +10,7 @@ body h1 {
     background: white;
     border: 1px solid #e2e8f0;
     border-radius: 12px;
-    padding: 16px;
+    padding: 0;
     margin-bottom: 16px;
     display: flex;
     align-items: center;
@@ -24,13 +24,17 @@ body h1 {
     transform: translateY(-2px);
 }
 
+.trigger_show_form {
+    flex: 1;
+}
+
 .trigger_show_button {
     background: none;
     border: none;
     cursor: pointer;
     text-align: left;
     width: 100%;
-    padding: 0;
+    padding: 16px;
     font: inherit;
     color: #2d3748;
     font-weight: 500;
@@ -46,11 +50,15 @@ body h1 {
     color: #4299e1;
 }
 
+.trigger_edit_form {
+    padding: 8px 16px;
+}
+
 .trigger_edit_button {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 8px;
+    padding: 8px 12px;
     color: #e53e3e;
     border-radius: 6px;
     transition: all 0.2s ease;

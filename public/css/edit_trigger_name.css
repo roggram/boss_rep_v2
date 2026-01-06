@@ -71,3 +71,57 @@
 .trigger_edit_button:hover {
     background-color: #3182ce;
 }
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    body {
+        padding: 12px;
+    }
+
+    h1 {
+        font-size: 1.4rem;
+    }
+
+    .navigation {
+        margin-bottom: 16px;
+    }
+
+    .nav-button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .one_trigger_container {
+        padding: 12px;
+    }
+
+    .trigger_show_form {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .trigger_show_button {
+        width: 100%;
+    }
+
+    .trigger_edit_button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    .trigger_show_button {
+        font-size: 0.95rem;
+        padding: 10px;
+    }
+
+    .trigger_edit_button {
+        font-size: 0.9rem;
+        padding: 10px 12px;
+    }
+}

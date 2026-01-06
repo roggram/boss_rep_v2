@@ -36,7 +36,7 @@
     background: white;
     border: 1px solid #e2e8f0;
     border-radius: 12px;
-    padding: 16px;
+    padding: 0;
     margin-bottom: 16px;
     display: flex;
     align-items: center;
@@ -50,18 +50,22 @@
     transform: translateY(-2px);
 }
 
+.situation_show_form {
+    flex: 1;
+}
+
 .situation_show_button {
     background: none;
     border: none;
     cursor: pointer;
     text-align: left;
-    padding: 0;
+    padding: 16px;
     font: inherit;
     color: #2d3748;
     font-weight: 500;
     display: flex;
     align-items: center;
-    width: auto;
+    width: 100%;
 }
 
 .situation_show_button:before {
@@ -75,13 +79,14 @@
 .button-group {
     display: flex;
     gap: 8px;
+    padding: 8px 16px;
 }
 
 .situation_edit_button {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 8px;
+    padding: 8px 12px;
     border-radius: 6px;
     color: #4a5568;
     font-size: 0.9rem;
@@ -143,4 +148,81 @@ input[type="text"]:focus {
 
 .add-button:hover {
     background-color: #3182ce;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    body {
+        padding: 12px;
+    }
+
+    .header h1 {
+        font-size: 1.4rem;
+    }
+
+    .navigation {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .back-button, .home-button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .one_situation_container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .situation_show_form {
+        width: 100%;
+    }
+
+    .situation_show_button {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .button-group {
+        width: 100%;
+        justify-content: flex-end;
+        padding: 0 16px 8px 16px;
+    }
+
+    .situation_edit_button {
+        flex: 0 0 auto;
+    }
+
+    .new-situation-form {
+        padding: 16px;
+    }
+
+    .new-situation-form h2 {
+        font-size: 1.2rem;
+    }
+
+    .form-group {
+        flex-direction: column;
+    }
+
+    .add-button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.2rem;
+    }
+
+    .situation_show_button {
+        font-size: 0.95rem;
+    }
+
+    .situation_edit_button {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
 }

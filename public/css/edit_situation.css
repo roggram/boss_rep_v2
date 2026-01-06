@@ -85,3 +85,58 @@
     font-family: 'Font Awesome 6 Free';
     font-weight: 900;
 }
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    body {
+        padding: 12px;
+    }
+
+    h1 {
+        font-size: 1.4rem;
+    }
+
+    .nav-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .back-button, .home-button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .one_situation_container {
+        padding: 12px;
+    }
+
+    .situation_show_form {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .situation_show_button {
+        width: 100%;
+    }
+
+    .message_edit_button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    .situation_show_button {
+        font-size: 0.95rem;
+        padding: 10px;
+    }
+
+    .message_edit_button {
+        font-size: 0.9rem;
+        padding: 10px 12px;
+    }
+}
