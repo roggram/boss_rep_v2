@@ -82,7 +82,7 @@ class UpdateMessageExecAction extends Action{
 		$trigger_id = $target_message->trigger_id;
 		$situation_id = $target_message->situation_id;
 		return $this->response
-			->withHeader("Location", "/show_situation?trigger_id={$trigger_id}")
+			->withHeader("Location", "/edit_message?trigger_id={$trigger_id}&situation_id={$situation_id}")
 			->withStatus(303);
 	}
 }
