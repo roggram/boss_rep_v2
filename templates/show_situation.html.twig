@@ -37,7 +37,7 @@
                         追加-編集
                     </button>
                 </form>
-                <form method="post" action="/delete_situation" class="situation_edit_button">
+                <form method="post" action="/delete_situation" class="situation_edit_button" onsubmit="return confirm('「{{ situation.situation_name }}」に登録した全てのメッセージが削除されます。\n本当に削除しますか？');">
                     <input type="hidden" name="situation_id" value="{{situation.id}}">
                     <input type="hidden" name="trigger_id" value="{{trigger_id}}">
                     <button type="submit" class="situation_edit_button">

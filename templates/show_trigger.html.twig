@@ -22,7 +22,7 @@
                 <input type="hidden" name="trigger_id" value="{{trigger.id}}">
                 <button type="submit" class="trigger_show_button">{{ trigger.trigger_name }}</button>
             </form>
-            <form method="post" action="/delete_trigger" class="trigger_edit_form">
+            <form method="post" action="/delete_trigger" class="trigger_edit_form" onsubmit="return confirm('「{{ trigger.trigger_name }}」に紐づくデータ（メンバー・メッセージ）も削除されます。\n本当に削除しますか？');">
                 <input type="hidden" name="trigger_id" value="{{trigger.id}}">
                 <button type="submit" class="trigger_edit_button">
                     <i class="fas fa-trash"></i>
