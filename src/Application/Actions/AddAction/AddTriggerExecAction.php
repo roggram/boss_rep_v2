@@ -8,6 +8,8 @@ use Psr\Log\LoggerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use App\Application\Settings\SettingsInterface;
 use App\Models\Trigger;
+use Respect\Validation\Validator as v;
+use Respect\Validation\Exceptions\ValidationException;
 
 
 class AddTriggerExecAction extends Action{
@@ -32,6 +34,18 @@ class AddTriggerExecAction extends Action{
 		$params = $this->request->getParsedBody();
 		// リクエストパラメータ
 		$trigger_name = $params["trigger_name"] ?? null;
+
+		// バリデーション
+		try {
+			v::notEmpty()->length(1, 20)->check($trigger_name);
+		} catch (ValidationException $e) {
+			$_SESSION['validation_errors'] = ['trigger_name' => ['コミュニティ名は必須で、20文字以内で入力してください']];
+			$_SESSION['old_input'] = ['trigger_name' => $trigger_name];
+			return $this->response
+				->withHeader('Location', '/add_trigger')
+				->withStatus(303);
+		}
+
 		$trigger = new Trigger();
 		$trigger->trigger_name = $trigger_name;
 		$trigger->user_id = $user_id;  // ログイン中のユーザーIDを設定

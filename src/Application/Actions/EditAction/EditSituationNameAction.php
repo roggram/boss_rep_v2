@@ -58,7 +58,20 @@ class EditSituationNameAction extends Action{
 			->where("trigger_id", $trigger_id)
 			->where("user_id", $user_id)
 			->get();
+
+		// バリデーションエラーと旧入力値を取得
+		$validation_errors = $_SESSION['validation_errors'] ?? [];
+		$old_input = $_SESSION['old_input'] ?? [];
+		// セッションから削除（一度だけ表示）
+		unset($_SESSION['validation_errors']);
+		unset($_SESSION['old_input']);
+
 		return $this->twig->render($this->response, $template,
-			[ 'trigger_id' => $trigger_id, 'situations' => $situations]);
+			[
+				'trigger_id' => $trigger_id,
+				'situations' => $situations,
+				'validation_errors' => $validation_errors,
+				'old_input' => $old_input
+			]);
 	}
 }

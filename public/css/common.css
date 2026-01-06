@@ -103,3 +103,25 @@ textarea:focus {
 .transition-all {
     transition: all 0.2s ease;
 }
+
+/* バリデーションエラー表示スタイル */
+input.error,
+textarea.error {
+    border-color: #e53e3e !important;
+    background-color: #fff5f5 !important;
+}
+
+input.error:focus,
+textarea.error:focus {
+    border-color: #e53e3e !important;
+    box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.15) !important;
+}
+
+.error-message {
+    display: block;
+    color: #e53e3e;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    font-weight: 500;
+    padding-left: 4px;
+}

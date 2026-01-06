@@ -8,6 +8,8 @@ use Psr\Log\LoggerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use App\Application\Settings\SettingsInterface;
 use App\Models\Trigger;
+use Respect\Validation\Validator as v;
+use Respect\Validation\Exceptions\ValidationException;
 
 
 class EditTriggerNameExecAction extends Action{
@@ -31,6 +33,20 @@ class EditTriggerNameExecAction extends Action{
 		$request = $this->request;
 		$update_trigger_name_text = $request->getParsedBody()["update_trigger_name_text"] ?? null;
 		$trigger_id = $request->getParsedBody()["trigger_id"] ?? null;
+
+		// バリデーション
+		try {
+			v::notEmpty()->length(1, 20)->check($update_trigger_name_text);
+		} catch (ValidationException $e) {
+			$_SESSION['validation_errors'] = ['update_trigger_name_text' => ['コミュニティ名は必須で、20文字以内で入力してください']];
+			$_SESSION['old_input'] = [
+				'update_trigger_name_text' => $update_trigger_name_text,
+				'trigger_id' => $trigger_id
+			];
+			return $this->response
+				->withHeader('Location', "/edit_trigger_name?trigger_id={$trigger_id}")
+				->withStatus(303);
+		}
 
 		// このtriggerが本当にログイン中のユーザーのものか確認（セキュリティチェック）
 		$target_trigger = Trigger::where('id', $trigger_id)

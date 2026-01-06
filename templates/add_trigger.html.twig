@@ -20,7 +20,9 @@
                 <input
                     type="text"
                     name="trigger_name"
-                    placeholder="例:xxトリガー"
+                    placeholder="例:xxxサークル"
+                    value="{% if old_input.trigger_name is defined %}{{ old_input.trigger_name }}{% endif %}"
+                    class="{% if validation_errors.trigger_name is defined %}error{% endif %}"
                     required
                     autocomplete="off"
                 >
@@ -29,6 +31,9 @@
                     追加
                 </button>
             </div>
+            {% if validation_errors.trigger_name is defined %}
+                <span class="error-message">{{ validation_errors.trigger_name|first }}</span>
+            {% endif %}
         </form>
 
         <div class="button_container">

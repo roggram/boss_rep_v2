@@ -25,12 +25,20 @@
         <div class="one_trigger_container">
             <form method="post" action="edit_trigger_name_exec" class="trigger_show_form">
                 <input type="hidden" name="trigger_id" value="{{trigger.id}}">
-                <input class="trigger_show_button" type="text" name="update_trigger_name_text" value="{{ trigger.trigger_name }}">
+                <input
+                    class="trigger_show_button {% if validation_errors.update_trigger_name_text is defined and old_input.trigger_id is defined and old_input.trigger_id == trigger.id %}error{% endif %}"
+                    type="text"
+                    name="update_trigger_name_text"
+                    value="{% if old_input.trigger_id is defined and old_input.trigger_id == trigger.id and old_input.update_trigger_name_text is defined %}{{ old_input.update_trigger_name_text }}{% else %}{{ trigger.trigger_name }}{% endif %}"
+                >
                 <button type="submit" class="trigger_edit_button">
                     <i class="fas fa-check"></i>
                     更新
                 </button>
             </form>
+            {% if validation_errors.update_trigger_name_text is defined and old_input.trigger_id is defined and old_input.trigger_id == trigger.id %}
+                <span class="error-message">{{ validation_errors.update_trigger_name_text|first }}</span>
+            {% endif %}
         </div>
     {% endfor %}
 </body>

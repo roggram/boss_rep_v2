@@ -30,9 +30,18 @@
             <form method="post" action="edit_situation_name_exec" class="situation_show_form">
                 <input type="hidden" name="trigger_id" value="{{trigger_id}}">
                 <input type="hidden" name="situation_id" value="{{situation.id}}">
-                <input class="situation_show_button" type="text" name="update_situation_name_text" value="{{ situation.situation_name }}" required>
+                <input
+                    class="situation_show_button {% if validation_errors.update_situation_name_text is defined and old_input.situation_id is defined and old_input.situation_id == situation.id %}error{% endif %}"
+                    type="text"
+                    name="update_situation_name_text"
+                    value="{% if old_input.situation_id is defined and old_input.situation_id == situation.id and old_input.update_situation_name_text is defined %}{{ old_input.update_situation_name_text }}{% else %}{{ situation.situation_name }}{% endif %}"
+                    required
+                >
                 <button type="submit" class="message_edit_button">更新</button>
             </form>
+            {% if validation_errors.update_situation_name_text is defined and old_input.situation_id is defined and old_input.situation_id == situation.id %}
+                <span class="error-message">{{ validation_errors.update_situation_name_text|first }}</span>
+            {% endif %}
         </div>
     {% endfor %}
 </body>

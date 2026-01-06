@@ -59,7 +59,17 @@
     <div class="new-situation-form">
         <h2>新規メンバー追加</h2>
         <form method="post" action="/add_situation_exec" class="form-group">
-            <input type="text" name="add_situation_name" placeholder="新しい人物名を入力" required>
+            <input
+                type="text"
+                name="add_situation_name"
+                placeholder="新しい人物名を入力"
+                value="{% if old_input.add_situation_name is defined %}{{ old_input.add_situation_name }}{% endif %}"
+                class="{% if validation_errors.add_situation_name is defined %}error{% endif %}"
+                required
+            >
+            {% if validation_errors.add_situation_name is defined %}
+                <span class="error-message">{{ validation_errors.add_situation_name|first }}</span>
+            {% endif %}
             <input type="hidden" name="trigger_id" value="{{ trigger_id }}">
             <button type="submit" class="add-button">
                 <i class="fas fa-plus"></i>

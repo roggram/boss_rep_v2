@@ -10,6 +10,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 use App\Application\Settings\SettingsInterface;
 use App\Models\Message;
 use App\Models\Situation;
+use Respect\Validation\Validator as v;
+use Respect\Validation\Exceptions\ValidationException;
 
 
 class EditSituationNameExecAction extends Action{
@@ -35,6 +37,21 @@ class EditSituationNameExecAction extends Action{
 		$update_situation_name_text = $request->getParsedBody()["update_situation_name_text"] ?? null;
 		$trigger_id = $request->getParsedBody()["trigger_id"] ?? null;
 		$situation_id = $request->getParsedBody()["situation_id"] ?? null;
+
+		// バリデーション
+		try {
+			v::notEmpty()->length(1, 40)->check($update_situation_name_text);
+		} catch (ValidationException $e) {
+			$_SESSION['validation_errors'] = ['update_situation_name_text' => ['メンバー名は必須で、40文字以内で入力してください']];
+			$_SESSION['old_input'] = [
+				'update_situation_name_text' => $update_situation_name_text,
+				'trigger_id' => $trigger_id,
+				'situation_id' => $situation_id
+			];
+			return $this->response
+				->withHeader('Location', "/edit_situation_name?trigger_id={$trigger_id}&situation_id={$situation_id}")
+				->withStatus(303);
+		}
 
 		// このsituationが本当にログイン中のユーザーのものか確認（セキュリティチェック）
 		$target_situation = Situation::where('id', $situation_id)

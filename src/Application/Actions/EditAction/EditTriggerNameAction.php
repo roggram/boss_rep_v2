@@ -33,8 +33,20 @@ class EditTriggerNameAction extends Action{
 		}
 
 		$triggers = Trigger::where('user_id', $user_id)->get();
+
+		// バリデーションエラーと旧入力値を取得
+		$validation_errors = $_SESSION['validation_errors'] ?? [];
+		$old_input = $_SESSION['old_input'] ?? [];
+		// セッションから削除（一度だけ表示）
+		unset($_SESSION['validation_errors']);
+		unset($_SESSION['old_input']);
+
 		$template  = 'edit_trigger_name.html.twig';
 		return $this->twig->render($this->response, $template,
-				['triggers' => $triggers]);
+				[
+					'triggers' => $triggers,
+					'validation_errors' => $validation_errors,
+					'old_input' => $old_input
+				]);
 	}
 }

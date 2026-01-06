@@ -10,6 +10,8 @@ use App\Application\Settings\SettingsInterface;
 use App\Models\Message;
 use App\Models\Trigger;
 use App\Models\Situation;
+use Respect\Validation\Validator as v;
+use Respect\Validation\Exceptions\ValidationException;
 
 
 class AddMessageExecAction extends Action{
@@ -35,6 +37,17 @@ class AddMessageExecAction extends Action{
 		$add_message_text = $params["add_message_text"] ?? null;
 		$trigger_id = $params["trigger_id"] ?? null;
 		$situation_id = $params["situation_id"] ?? null;
+
+		// バリデーション
+		try {
+			v::notEmpty()->length(1, 2048)->check($add_message_text);
+		} catch (ValidationException $e) {
+			$_SESSION['validation_errors'] = ['add_message_text' => ['メッセージは必須で、2048文字以内で入力してください']];
+			$_SESSION['old_input'] = ['add_message_text' => $add_message_text];
+			return $this->response
+				->withHeader('Location', "/edit_message?trigger_id={$trigger_id}&situation_id={$situation_id}")
+				->withStatus(303);
+		}
 
 		// このsituationが本当にログイン中のユーザーのものか確認（セキュリティチェック）
 		$situation = Situation::where('id', $situation_id)

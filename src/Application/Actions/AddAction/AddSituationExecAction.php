@@ -9,6 +9,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 use App\Application\Settings\SettingsInterface;
 use App\Models\Situation;
 use App\Models\Trigger;
+use Respect\Validation\Validator as v;
+use Respect\Validation\Exceptions\ValidationException;
 
 
 class AddSituationExecAction extends Action{
@@ -37,6 +39,17 @@ class AddSituationExecAction extends Action{
 		// リクエストパラメータ
 		$situation_name = $params["add_situation_name"] ?? null;
 		$trigger_id = $params["trigger_id"] ?? null;
+
+		// バリデーション
+		try {
+			v::notEmpty()->length(1, 40)->check($situation_name);
+		} catch (ValidationException $e) {
+			$_SESSION['validation_errors'] = ['add_situation_name' => ['メンバー名は必須で、40文字以内で入力してください']];
+			$_SESSION['old_input'] = ['add_situation_name' => $situation_name];
+			return $response
+				->withHeader('Location', "/show_situation?trigger_id={$trigger_id}")
+				->withStatus(303);
+		}
 
 		// このtriggerが本当にログイン中のユーザーのものか確認（セキュリティチェック）
 		$trigger = Trigger::where('id', $trigger_id)

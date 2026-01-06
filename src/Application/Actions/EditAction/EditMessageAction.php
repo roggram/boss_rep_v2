@@ -61,11 +61,21 @@ class EditMessageAction extends Action{
 			->where("situation_id", $situation_id)
 			->where("user_id", $user_id)
 			->get();
+
+		// バリデーションエラーと旧入力値を取得
+		$validation_errors = $_SESSION['validation_errors'] ?? [];
+		$old_input = $_SESSION['old_input'] ?? [];
+		// セッションから削除（一度だけ表示）
+		unset($_SESSION['validation_errors']);
+		unset($_SESSION['old_input']);
+
 		return $this->twig->render($this->response, $template,
 		[
 			'trigger_id' => $trigger_id,
 			'situation_id' => $situation_id,
-			'messages' => $messages
+			'messages' => $messages,
+			'validation_errors' => $validation_errors,
+			'old_input' => $old_input
 		]);
 	}
 }

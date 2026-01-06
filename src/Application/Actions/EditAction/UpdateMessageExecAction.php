@@ -9,6 +9,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use App\Application\Settings\SettingsInterface;
 use App\Models\Message;
+use Respect\Validation\Validator as v;
+use Respect\Validation\Exceptions\ValidationException;
 
 
 class UpdateMessageExecAction extends Action{
@@ -33,6 +35,35 @@ class UpdateMessageExecAction extends Action{
 		$request = $this->request;
 		$update_message_text = $request->getParsedBody()["update_message_text"] ?? null;
 		$message_id = $request->getParsedBody()["message_id"] ?? null;
+
+		// バリデーション
+		try {
+			v::notEmpty()->length(1, 2048)->check($update_message_text);
+		} catch (ValidationException $e) {
+			// リダイレクト先取得のため、メッセージを取得
+			$target_message = Message::where('id', $message_id)
+				->where('user_id', $user_id)
+				->first();
+
+			if ($target_message) {
+				$trigger_id = $target_message->trigger_id;
+				$situation_id = $target_message->situation_id;
+			} else {
+				// メッセージが見つからない場合はshow_triggerへ
+				return $this->response
+					->withHeader("Location", "/show_trigger")
+					->withStatus(303);
+			}
+
+			$_SESSION['validation_errors'] = ['update_message_text' => ['メッセージは必須で、2048文字以内で入力してください']];
+			$_SESSION['old_input'] = [
+				'update_message_text' => $update_message_text,
+				'message_id' => $message_id
+			];
+			return $this->response
+				->withHeader('Location', "/edit_message?trigger_id={$trigger_id}&situation_id={$situation_id}")
+				->withStatus(303);
+		}
 
 		// このmessageが本当にログイン中のユーザーのものか確認（セキュリティチェック）
 		$target_message = Message::where('id', $message_id)

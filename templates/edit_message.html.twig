@@ -18,11 +18,10 @@
             <i class="fas fa-arrow-left"></i>
             戻る
         </a>
-        {# メッセージ編集画面からTopページに戻るボタンを廃止 #}
-        {# <a href="/show_trigger" class="nav-button">
+        <a href="/show_trigger" class="nav-button">
             <i class="fas fa-home"></i>
-            ホーム画面へ
-        </a> #}
+            トップページに戻る
+        </a>
     </div>
 
     <!-- メッセージリスト -->
@@ -30,7 +29,12 @@
         <div class="one_message_container">
             <form method="post" action="/update_message" class="message_show_form">
                 <input type="hidden" name="message_id" value="{{message.id}}">
-                <input class="message_edit_form" type="text" name="update_message_text" value="{{ message.message }}">
+                <input
+                    class="message_edit_form {% if validation_errors.update_message_text is defined and old_input.message_id is defined and old_input.message_id == message.id %}error{% endif %}"
+                    type="text"
+                    name="update_message_text"
+                    value="{% if old_input.message_id is defined and old_input.message_id == message.id and old_input.update_message_text is defined %}{{ old_input.update_message_text }}{% else %}{{ message.message }}{% endif %}"
+                >
                 <button type="submit" class="message_edit_button">
                     <i class="fas fa-check"></i>
                     更新
@@ -43,12 +47,25 @@
                     削除
                 </button>
             </form>
+            {% if validation_errors.update_message_text is defined and old_input.message_id is defined and old_input.message_id == message.id %}
+                <span class="error-message">{{ validation_errors.update_message_text|first }}</span>
+            {% endif %}
         </div>
     {% endfor %}
 
     <!-- 新規追加フォーム -->
     <form action="/add_message" method="post" class="new_message_container">
-        <input type="text" name="add_message_text" required placeholder="新しいメッセージを入力...">
+        <input
+            type="text"
+            name="add_message_text"
+            value="{% if old_input.add_message_text is defined %}{{ old_input.add_message_text }}{% endif %}"
+            class="{% if validation_errors.add_message_text is defined %}error{% endif %}"
+            required
+            placeholder="新しいメッセージを入力..."
+        >
+        {% if validation_errors.add_message_text is defined %}
+            <span class="error-message">{{ validation_errors.add_message_text|first }}</span>
+        {% endif %}
         <input type="hidden" name="trigger_id" value="{{ trigger_id }}">
         <input type="hidden" name="situation_id" value="{{ situation_id }}">
         <button type="submit">
