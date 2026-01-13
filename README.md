@@ -1,42 +1,37 @@
-# Slim Framework 4 Skeleton Application
+# トークメモリー
+月に1回ほど活動がある社会人サークルなどに所属した際、久しぶりに会った人と
+前回なんの話題で盛り上がっていたのか。次あったら何を話したいと思っていたのか、
+別れ際になってようやく思い出すことが多々あったので、それを事前に思い出せるサービスを作ろうと思い制作しました。
+以前会った人との会話内容や、次に会う時に話したいことを記録・想起するためのWebアプリケーションです。
+Slim Framework 4 を使用して開発しました。
 
-[![Coverage Status](https://coveralls.io/repos/github/slimphp/Slim-Skeleton/badge.svg?branch=master)](https://coveralls.io/github/slimphp/Slim-Skeleton?branch=master)
+## ■ Webアプリの使い方
 
-Use this skeleton application to quickly setup and start working on a new Slim Framework 4 application. This application uses the latest Slim 4 with Slim PSR-7 implementation and PHP-DI container implementation. It also uses the Monolog logger.
+### （登録方法）
+1. **ログイン**
+   ログインをします（初めての場合は新規ユーザーが作成されます）。
+2. **コミュニティ登録**
+   「＋新規コミュニティ追加」ボタンから、自分が所属しているコミュニティ名を登録します。
+3. **メンバー登録**
+   登録したコミュニティをクリックし、そのコミュニティに所属しているメンバーの名前を登録します。
+4. **会話メモの登録**
+   登録したメンバー名の右にある「追加-編集ボタン」をクリックし、その人と次に会ったら話したいことや、以前会った際に話していた内容などを登録します。
 
-This skeleton application was built for Composer. This makes setting up a new Slim Framework application quick and easy.
+### （確認方法）
+1. **会話内容の振り返り**
+   月に一度の集まりなどに行く前に、コミュニティ一覧から行き先を選択し、話そうと思っているメンバーの名前をクリックします。
+2. **アニメーション表示**
+   以前会った際に話していた話題や、次に会ったら話したい内容などが**タイピングアニメーション**で表示されます。それを見て内容を思い出してから会いに行きます。
 
-## Install the Application
+---
 
-Run this command from the directory in which you want to install your new Slim Framework application. You will require PHP 7.4 or newer.
+## ■ リポジトリについて（開発背景）
 
-```bash
-composer create-project slim/slim-skeleton [my-app-name]
-```
+* **リポジトリ名について**
+    初期の頃は上司とのやりとりを記録するツールを想定していたため、リポジトリ名が `boss_rep_v2` となっています。
+    
+* **セキュリティと再設計**
+    以前作成していたリポジトリでは、データベース接続情報を直接記述してしまうなどのセキュリティ的な懸念点がありました。本リポジトリではそれらを改善し、安全性を考慮した設計で新たに作成・共有させていただいております。
 
-Replace `[my-app-name]` with the desired directory name for your new application. You'll want to:
+---
 
-* Point your virtual host document root to your new application's `public/` directory.
-* Ensure `logs/` is web writable.
-
-To run the application in development, you can run these commands 
-
-```bash
-cd [my-app-name]
-composer start
-```
-
-Or you can use `docker-compose` to run the app with `docker`, so you can run these commands:
-```bash
-cd [my-app-name]
-docker-compose up -d
-```
-After that, open `http://localhost:8080` in your browser.
-
-Run this command in the application directory to run the test suite
-
-```bash
-composer test
-```
-
-That's it! Now go build something cool.
