@@ -23,16 +23,11 @@ class ShowSituationAction extends Action{
 	 * {@inheritdoc}
 	 */
 	protected function action(): Response {
+		// 認証済みユーザーIDを取得
+		$user_id = $this->request->getAttribute('user_id');
+
 		$request = $this->request;
 		$trigger_id = $request->getQueryParams()["trigger_id"] ?? null;
-
-		// ログイン確認
-		$user_id = $_SESSION['user_id'] ?? null;
-		if (!$user_id) {
-			return $this->response
-				->withHeader('Location', '/')
-				->withStatus(303);
-		}
 
 		// trigger_idが指定されているか確認
 		if (!$trigger_id) {

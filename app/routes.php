@@ -27,6 +27,7 @@ use App\Application\Actions\ShowAction\ShowTriggerAction;
 use App\Application\Actions\LoginAction\ShowLoginPageAction;
 use App\Application\Actions\User\ListUsersAction;
 use App\Application\Actions\User\ViewUserAction;
+use App\Application\Middleware\AuthenticationMiddleware;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
@@ -38,40 +39,47 @@ return function (App $app) {
         // CORS Pre-Flight OPTIONS Request Handler
         return $response;
     });
-    // $app->get('/', function (Request $request, Response $response) {
-    //     $response->getBody()->write('<a>/show_trigger</a>Hello worldおお!');
-    //     return $response;
-    // });
 
-    // ログイン
+    // ============================================
+    // 認証不要なルート（ログイン関連）
+    // ============================================
     $app->get('/', ShowLoginPageAction::class); // ログインページ
     $app->get('/line_login', LineLoginAction::class); // LINEログイン
     $app->get('/line_login/callback', LineAuthCallbackAction::class); // LINEログイン コールバック
     $app->get('/guest_login', GuestLoginAction::class); // ゲストログイン
     $app->get('/logout', LogoutAction::class); // ログアウト
-    // TODO: 以下はログアウトボタンを押された時のAPI
-    $app->get('/show_login_page', ShowLoginPageAction::class);
-    // Trigger
-    $app->get('/show_trigger', ShowTriggerAction::class);
-    $app->get('/add_trigger', AddTriggerAction::class);
-    $app->get('/edit_trigger_name', EditTriggerNameAction::class);
-    $app->post('/add_trigger_exec', AddTriggerExecAction::class);
-    $app->post('/delete_trigger', DeleteTriggerAction::class);
-    $app->post('/edit_trigger_name_exec', EditTriggerNameExecAction::class);
-    // Situation
-    $app->post('/add_situation_exec', AddSituationExecAction::class);
-    $app->get('/show_situation', ShowSituationAction::class);
-    $app->get('/edit_situation_name', EditSituationNameAction::class);
-    $app->post('/delete_situation', DeleteSituationAction::class);
-    $app->post('/edit_situation_name_exec', EditSituationNameExecAction::class);
-    // Message
-    $app->get('/show_message', ShowMessageAction::class);
-    $app->post('/add_message', AddMessageExecAction::class);
-    $app->get('/edit_message', EditMessageAction::class);
-    $app->post('/update_message', UpdateMessageExecAction::class);
-    $app->post('/delete_message', DeleteMessageExecAction::class);
-    $app->group('/users', function (Group $group) {
-        $group->get('', ListUsersAction::class);
-        $group->get('/{id}', ViewUserAction::class);
-    });
+    $app->get('/show_login_page', ShowLoginPageAction::class); // ログアウトボタンを押された時のAPI
+
+    // ============================================
+    // 認証が必要なルート（AuthenticationMiddleware適用）
+    // ============================================
+    $app->group('', function (Group $group) {
+        // Trigger
+        $group->get('/show_trigger', ShowTriggerAction::class);
+        $group->get('/add_trigger', AddTriggerAction::class);
+        $group->get('/edit_trigger_name', EditTriggerNameAction::class);
+        $group->post('/add_trigger_exec', AddTriggerExecAction::class);
+        $group->post('/delete_trigger', DeleteTriggerAction::class);
+        $group->post('/edit_trigger_name_exec', EditTriggerNameExecAction::class);
+
+        // Situation
+        $group->post('/add_situation_exec', AddSituationExecAction::class);
+        $group->get('/show_situation', ShowSituationAction::class);
+        $group->get('/edit_situation_name', EditSituationNameAction::class);
+        $group->post('/delete_situation', DeleteSituationAction::class);
+        $group->post('/edit_situation_name_exec', EditSituationNameExecAction::class);
+
+        // Message
+        $group->get('/show_message', ShowMessageAction::class);
+        $group->post('/add_message', AddMessageExecAction::class);
+        $group->get('/edit_message', EditMessageAction::class);
+        $group->post('/update_message', UpdateMessageExecAction::class);
+        $group->post('/delete_message', DeleteMessageExecAction::class);
+
+        // Users
+        $group->group('/users', function (Group $nestedGroup) {
+            $nestedGroup->get('', ListUsersAction::class);
+            $nestedGroup->get('/{id}', ViewUserAction::class);
+        });
+    })->add(AuthenticationMiddleware::class);
 };

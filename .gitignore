@@ -4,3 +4,4 @@ logs/app.log
 .DS_Store
 vendor/
 backup.sql
+var/

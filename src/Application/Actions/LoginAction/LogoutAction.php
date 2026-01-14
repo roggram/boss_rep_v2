@@ -27,18 +27,28 @@ class LogoutAction extends Action
 
 	protected function logout(): Response
 	{
-		// セッションはSessionMiddlewareで開始済み
+		// SessionMiddleware経由でセッション全体を取得
+		$session = $this->request->getAttribute('session') ?? [];
+		$user_id = $session['user_id'] ?? 'unknown';
 
 		// ログアウト前のユーザー情報をログに記録
-		$user_id = $_SESSION['user_id'] ?? 'unknown';
-		// $this->logger->info("ログアウト実行: user_id={$user_id}");
+		$this->logger->info("ログアウト実行: user_id={$user_id}");
 
-		// セッション変数を全て削除
+		// セッション変数を全て削除（PHP公式マニュアル推奨）
 		$_SESSION = [];
 
-		// セッションクッキーも削除
-		if (isset($_COOKIE[session_name()])) {
-			setcookie(session_name(), '', time() - 3600, '/');
+		// セッションクッキーを削除
+		if (ini_get('session.use_cookies')) {
+			$params = session_get_cookie_params();
+			setcookie(
+				session_name(),
+				'',
+				time() - 42000,
+				$params['path'],
+				$params['domain'],
+				$params['secure'],
+				$params['httponly']
+			);
 		}
 
 		// セッションを破棄

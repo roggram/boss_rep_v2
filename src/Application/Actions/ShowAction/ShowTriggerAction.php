@@ -21,24 +21,13 @@ class ShowTriggerAction extends Action{
 	 * {@inheritdoc}
 	 */
 	protected function action(): Response {
+		// 認証済みユーザーIDを取得
+		$user_id = $this->request->getAttribute('user_id');
+
 		$template  = 'show_trigger.html.twig';
-		// $this->logger->debug('Twig instance:', ['twig' => get_class($this->twig)]);
-		// $this->logger->debug('Template path:', ['path' => $template]);
-		// $template  = 'templates/show_trigger.html.twig';
-		// $title     = 'ShowTrigger';
 
 		// ログイン中のユーザーのトリガーのみ取得
-		$user_id = $_SESSION['user_id'] ?? null;
-		if (!$user_id) {
-			// ログインしていない場合はログインページにリダイレクト
-			return $this->response
-				->withHeader('Location', '/')
-				->withStatus(303);
-		}
-
 		$triggers = Trigger::where('user_id', $user_id)->get();
-		// if (count($triggers) === 0){
-		// }
 		return $this->twig->render($this->response, $template,
 			['triggers' => $triggers]);
 	}

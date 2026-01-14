@@ -24,14 +24,8 @@ class UpdateMessageExecAction extends Action{
 	 * {@inheritdoc}
 	 */
 	protected function action(): Response {
-		// ログイン確認
-		$user_id = $_SESSION['user_id'] ?? null;
-		if (!$user_id) {
-			return $this->response
-				->withHeader('Location', '/')
-				->withStatus(303);
-		}
-
+		// 認証済みユーザーIDを取得
+		$user_id = $this->request->getAttribute('user_id');
 		$request = $this->request;
 		$update_message_text = $request->getParsedBody()["update_message_text"] ?? null;
 		$message_id = $request->getParsedBody()["message_id"] ?? null;

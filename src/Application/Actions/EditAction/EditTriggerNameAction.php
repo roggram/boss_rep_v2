@@ -21,17 +21,11 @@ class EditTriggerNameAction extends Action{
 	 * {@inheritdoc}
 	 */
 	protected function action(): Response {
+		// 認証済みユーザーIDを取得
+		$user_id = $this->request->getAttribute('user_id');
 		$request = $this->request;
 
 		// ログイン中のユーザーのトリガーのみ取得
-		$user_id = $_SESSION['user_id'] ?? null;
-		if (!$user_id) {
-			// ログインしていない場合はログインページにリダイレクト
-			return $this->response
-				->withHeader('Location', '/')
-				->withStatus(303);
-		}
-
 		$triggers = Trigger::where('user_id', $user_id)->get();
 
 		// バリデーションエラーと旧入力値を取得
