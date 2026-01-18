@@ -14,13 +14,19 @@
 <body>
     <!-- ナビゲーション -->
     <div class="nav-container">
-        <a href="/show_situation?trigger_id={{ trigger_id }}" class="nav-button">
-            <i class="fas fa-arrow-left"></i>
-            戻る
-        </a>
-        <a href="/show_trigger" class="nav-button">
-            <i class="fas fa-home"></i>
-            トップページに戻る
+        <div>
+            <a href="/show_situation?trigger_id={{ trigger_id }}" class="nav-button">
+                <i class="fas fa-arrow-left"></i>
+                戻る
+            </a>
+            <a href="/show_trigger" class="nav-button">
+                <i class="fas fa-home"></i>
+                トップページに戻る
+            </a>
+        </div>
+        <a href="/show_message?trigger_id={{ trigger_id }}&situation_id={{ situation_id }}" class="nav-button show_btn">
+            <i class="fas fa-comments"></i>
+            メッセージを見る
         </a>
     </div>
 

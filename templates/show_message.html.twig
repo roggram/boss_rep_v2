@@ -4,11 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>show_message</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="/css/show_message.css">
 </head>
 <body>
     <div class="chat-container">
-        <button type="button" onclick="history.back()" class="back-button">戻る</button>
+        <div class="header-buttons">
+            <button type="button" onclick="history.back()" class="back-button">戻る</button>
+            <form method="get" action="/edit_message" class="edit-form">
+                <input type="hidden" name="situation_id" value="{{ situation_id }}">
+                <input type="hidden" name="trigger_id" value="{{ trigger_id }}">
+                <button type="submit" class="edit-button">
+                    <i class="fas fa-edit"></i>
+                    追加・編集
+                </button>
+            </form>
+        </div>
         <div id="chat-root"></div>
         <div class="input-container">
             <button type="button" onclick="showNextMessage()" class="next-button">次のメッセージへ</button>
