@@ -59,6 +59,7 @@ CREATE TABLE `messages` (
   `user_id` int(10) unsigned DEFAULT NULL,
   `trigger_id` int(11) NOT NULL,
   `situation_id` int(11) NOT NULL,
+  `display_order` int(11) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `deleted_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),

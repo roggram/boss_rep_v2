@@ -57,11 +57,17 @@ class AddMessageExecAction extends Action{
 				->withStatus(303);
 		}
 
+		// 同一シチュエーション内の最大display_orderを取得
+		$maxOrder = Message::where('situation_id', $situation_id)
+			->where('user_id', $user_id)
+			->max('display_order') ?? 0;
+
 		$message = new Message();
 		$message->message = $add_message_text;
 		$message->trigger_id = $trigger_id;
 		$message->situation_id = $situation_id;
 		$message->user_id = $user_id;  // ログイン中のユーザーIDを設定
+		$message->display_order = $maxOrder + 1;
 		// created_at, deleted_atはEloquentが自動管理
 		$message->save();
 		return $this->response

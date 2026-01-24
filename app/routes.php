@@ -17,6 +17,7 @@ use App\Application\Actions\EditAction\EditSituationNameExecAction;
 use App\Application\Actions\EditAction\EditTriggerNameAction;
 use App\Application\Actions\EditAction\EditTriggerNameExecAction;
 use App\Application\Actions\EditAction\UpdateMessageExecAction;
+use App\Application\Actions\EditAction\UpdateMessageOrderAction;
 use App\Application\Actions\LoginAction\GuestLoginAction;
 use App\Application\Actions\LoginAction\LineAuthCallbackAction;
 use App\Application\Actions\LoginAction\LineLoginAction;
@@ -75,6 +76,7 @@ return function (App $app) {
         $group->get('/edit_message', EditMessageAction::class);
         $group->post('/update_message', UpdateMessageExecAction::class);
         $group->post('/delete_message', DeleteMessageExecAction::class);
+        $group->post('/update_message_order', UpdateMessageOrderAction::class);
 
         // Users
         $group->group('/users', function (Group $nestedGroup) {

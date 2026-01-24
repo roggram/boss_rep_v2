@@ -33,6 +33,27 @@
     <!-- メッセージリスト -->
     {% for message in messages %}
         <div class="one_message_container">
+            <!-- 順序変更ボタン -->
+            <div class="order_buttons">
+                <form method="post" action="/update_message_order">
+                    <input type="hidden" name="message_id" value="{{ message.id }}">
+                    <input type="hidden" name="direction" value="up">
+                    <input type="hidden" name="trigger_id" value="{{ trigger_id }}">
+                    <input type="hidden" name="situation_id" value="{{ situation_id }}">
+                    <button type="submit" class="order_button" {% if loop.first %}disabled{% endif %}>
+                        <i class="fas fa-chevron-up"></i>
+                    </button>
+                </form>
+                <form method="post" action="/update_message_order">
+                    <input type="hidden" name="message_id" value="{{ message.id }}">
+                    <input type="hidden" name="direction" value="down">
+                    <input type="hidden" name="trigger_id" value="{{ trigger_id }}">
+                    <input type="hidden" name="situation_id" value="{{ situation_id }}">
+                    <button type="submit" class="order_button" {% if loop.last %}disabled{% endif %}>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </form>
+            </div>
             <form method="post" action="/update_message" class="message_show_form">
                 <input type="hidden" name="message_id" value="{{message.id}}">
                 <textarea

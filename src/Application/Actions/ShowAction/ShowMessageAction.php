@@ -55,6 +55,7 @@ class ShowMessageAction extends Action{
 			->where("trigger_id", $trigger_id)
 			->where("situation_id", $situation_id)
 			->where("user_id", $user_id)
+			->orderBy('display_order')
 			->get();
 		return $this->twig->render($this->response, $template,
 			[ 'trigger_id' => $trigger_id,

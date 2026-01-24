@@ -54,6 +54,7 @@ class EditMessageAction extends Action{
 			->where("trigger_id", $trigger_id)
 			->where("situation_id", $situation_id)
 			->where("user_id", $user_id)
+			->orderBy('display_order')
 			->get();
 
 		// バリデーションエラーと旧入力値を取得
